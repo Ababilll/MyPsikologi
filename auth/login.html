@@ -1,39 +1,37 @@
-<!doctype html>
-<html lang="id">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Login - MyPsikologi</title>
-  <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      
-      <div class="hero">
-        <div class="logo-circle">Logo</div>
-        <h3>H-Deeja Psychology Center</h3>
-      </div>
 
-      <div class="content">
-        <div class="title">Masuk</div>
-
-        <form action="" method="POST">
-          <label>Email</label>
-          <input type="email" class="input" placeholder="contoh@email.com" required>
-
-          <label>Kata Sandi</label>
-          <input type="password" class="input" placeholder="Masukkan kata sandi" required>
-
-          <button class="btn">Masuk</button>
-          <a href="#" class="link-muted">Lupa Kata Sandi?</a>
-
-          <div class="small-center">
-            Belum punya akun? <a href="daftar.html">Daftar</a>
-          </div>
-        </form>
-      </div>
-
+<div class="container">
+    <div class="header">
+        <div class="logo">Logo</div>
+        <span>H-Deeja Psychology Center</span>
     </div>
-  </div>
+
+    <h2>Masuk</h2>
+
+    <form action="login.php" method="POST">
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Kata Sandi</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Masuk</button>
+
+        <div class="bottom">
+            <a href="#">Lupa Kata Sandi?</a>
+        </div>
+
+        <div class="bottom">
+            Belum punya akun? <a href="daftar.html">Daftar</a>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>
