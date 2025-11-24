@@ -1,0 +1,176 @@
+:root{
+  --bg:#0f1720;
+  --card-bg:#dff2f6;
+  --accent:#2b84f0;
+  --muted:#12303a;
+  --white:#ffffff;
+  --input-bg:#ffffff;
+  --shadow: 0 6px 14px rgba(2,10,23,0.25);
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+*{box-sizing:border-box;}
+html,body{
+  height:100%;
+  margin:0;
+  background:var(--bg);
+  color:var(--white);
+}
+
+/* ========== WRAPPER FULL SCREEN DESKTOP ========= */
+.wrap{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+}
+
+/* ========== CARD ========= */
+.card{
+  width:100%;
+  max-width:520px;               /* ➜ desktop jadi lebih besar */
+  background:var(--card-bg);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,0.6);
+  display:flex;
+  flex-direction:column;
+}
+
+/* HEADER GAMBAR */
+.hero{
+  position:relative;
+  height:210px; /* buat desktop lebih tinggi */
+  background-image:linear-gradient(
+      rgba(3,19,25,0.35),
+      rgba(3,19,25,0.35)
+  ),
+  url("gambar-header.jpg");
+  background-size:cover;
+  background-position:center;
+  padding:18px;
+  border-bottom-left-radius:40px;
+  border-bottom-right-radius:40px;
+  display:flex;
+  align-items:flex-start;
+  flex-direction:column;
+  gap:8px;
+}
+
+/* LOGO */
+.logo-circle{
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  background:var(--white);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:var(--accent);
+  box-shadow:0 6px 18px rgba(6,30,50,0.35);
+}
+
+.hero h3{
+  margin:0;
+  color:var(--white);
+  font-size:20px;
+  font-weight:700;
+  margin-top:5px;
+}
+
+.content{
+  padding:38px 42px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+.title{
+  font-size:32px;
+  color:var(--muted);
+  text-align:center;
+  margin-bottom:24px;
+  font-weight:700;
+}
+
+/* INPUT */
+label{
+  display:block;
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+
+.input{
+  width:100%;
+  padding:15px 17px;
+  border-radius:12px;
+  border:none;
+  background:var(--input-bg);
+  box-shadow:var(--shadow);
+  margin-bottom:20px;
+  font-size:16px;
+  color:#0b2330;
+}
+
+/* BUTTON */
+.btn{
+  display:block;
+  width:70%;
+  margin:18px auto 10px;
+  padding:14px 20px;
+  border-radius:12px;
+  border:none;
+  background:var(--accent);
+  color:var(--white);
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 6px 12px rgba(43,132,240,0.28);
+}
+
+/* TEXT LINKS */
+.link-muted{
+  display:block;
+  text-align:center;
+  font-size:14px;
+  color:#0b2330;
+  margin-top:6px;
+}
+
+.small-center{
+  font-size:14px;
+  text-align:center;
+  color:#0b2330;
+  margin-top:18px;
+}
+
+/* ====================================================
+   RESPONSIVE UNTUK MOBILE
+   ≤ 480px → tampilan sempit seperti desainmu
+==================================================== */
+@media (max-width:480px){
+  .wrap{
+    padding:16px;
+  }
+  .card{
+    max-width:100%;
+    border-radius:16px;
+  }
+  .hero{
+    height:170px;
+    border-radius:0;
+  }
+  .content{
+    padding:28px 24px;
+  }
+  .title{
+    font-size:26px;
+  }
+  .logo-circle{
+    width:62px;
+    height:62px;
+  }
+}

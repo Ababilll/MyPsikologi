@@ -42,7 +42,7 @@ body {
 /* HERO */
 .hero {
     height: 90vh;
-    background: url("https://via.placeholder.com/1200x800") center/cover;
+    background: image(klinik.jpg)
     position: relative;
     display: flex;
     align-items: center;
