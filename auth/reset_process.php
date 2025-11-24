@@ -6,19 +6,31 @@ $pass  = $_POST['password'];
 $pass2 = $_POST['password2'];
 
 if ($pass !== $pass2) {
-    die("Password tidak sama!");
+    echo "<script>
+        alert('Password tidak sama!');
+        history.back();
+    </script>";
+    exit;
 }
 
 $q = mysqli_query($conn, "SELECT * FROM pengguna WHERE reset_token='$token'");
 $data = mysqli_fetch_assoc($q);
 
 if (!$data) {
-    die("Token tidak valid.");
+    echo "<script>
+        alert('Token tidak valid!');
+        window.location='../auth/lupa.html';
+    </script>";
+    exit;
 }
 
 // cek expired
 if (strtotime($data['reset_expired']) < time()) {
-    die("Token kadaluarsa.");
+    echo "<script>
+        alert('Token sudah kadaluarsa! Silakan request lupa password baru.');
+        window.location='lupa.html';
+    </script>";
+    exit;
 }
 
 // enkripsi password baru
@@ -26,9 +38,12 @@ $newPass = password_hash($pass, PASSWORD_DEFAULT);
 
 // update ke database
 mysqli_query($conn, "
-    UPDATE users 
+    UPDATE pengguna 
     SET password='$newPass', reset_token=NULL, reset_expired=NULL
     WHERE reset_token='$token'
 ");
 
-echo "Password telah diganti. <a href='login.html'>Masuk</a>";
+echo "<script>
+    alert('Password berhasil direset! Silakan login menggunakan password baru.');
+    window.location='login.html';
+</script>";
