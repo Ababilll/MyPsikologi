@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Nov 25, 2025 at 04:23 PM
+-- Host: 127.0.0.1
+-- Generation Time: Nov 25, 2025 at 08:44 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,9 +43,16 @@ CREATE TABLE `admin` (
 CREATE TABLE `antrian` (
   `id_antrian` int(11) NOT NULL,
   `id_pengguna` int(11) NOT NULL,
-  `id_konseling` int(11) NOT NULL,
+  `id_konseling` int(11) DEFAULT NULL,
   `waktuDaftar` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `antrian`
+--
+
+INSERT INTO `antrian` (`id_antrian`, `id_pengguna`, `id_konseling`, `waktuDaftar`) VALUES
+(4, 6, NULL, '2025-11-25 20:35:56');
 
 -- --------------------------------------------------------
 
@@ -82,9 +89,8 @@ CREATE TABLE `jadwal` (
 --
 
 INSERT INTO `jadwal` (`id_jadwal`, `id_psikolog`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `kuota`, `terisi`) VALUES
-(1, 1, '2025-11-26', '08:00:00.000', '12:00:00.000', 4, 0),
 (2, 2, '2025-11-26', '08:00:00.000', '12:00:00.000', 4, 0),
-(3, 3, '2025-11-26', '08:00:00.000', '12:00:00.000', 4, 0),
+(3, 3, '2025-11-26', '08:00:00.000', '12:00:00.000', 4, 1),
 (4, 1, '2025-11-27', '08:00:00.000', '12:00:00.000', 4, 0);
 
 -- --------------------------------------------------------
@@ -144,6 +150,13 @@ CREATE TABLE `pemesanan` (
   `status_pemesanan` varchar(50) DEFAULT 'Menunggu Pembayaran'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `pemesanan`
+--
+
+INSERT INTO `pemesanan` (`id_pemesanan`, `id_jadwal`, `id_pengguna`, `nama_lengkap`, `nomor_telepon`, `tanggal_pesan`, `status_pemesanan`) VALUES
+(2, 3, 6, 'Dyatmika Widodo', '085870696748', '2025-11-26 02:37:13', 'Terdaftar');
+
 -- --------------------------------------------------------
 
 --
@@ -157,16 +170,19 @@ CREATE TABLE `pengguna` (
   `username` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `reset_token` varchar(255) DEFAULT NULL,
-  `reset_expired` datetime DEFAULT NULL
+  `reset_expired` datetime DEFAULT NULL,
+  `role` enum('admin','user') NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pengguna`
 --
 
-INSERT INTO `pengguna` (`id_pengguna`, `nama`, `email`, `username`, `password`, `reset_token`, `reset_expired`) VALUES
-(1, '', 'jokowi@gmail.com', 'owiowi', '$2y$10$FDxAMlo/6sIxFY2.zb1zkuYW3R27d3O9srH0pWGbfEDgPCXrgWBqK', NULL, NULL),
-(2, '', 'dhafapaksi@gmail.com', 'wowo', '$2y$10$M5dA/oPV8lamfYcUmafSJek5MOEWTgxbu2r7Lo6xBYJWAPdBLRMwW', NULL, NULL);
+INSERT INTO `pengguna` (`id_pengguna`, `nama`, `email`, `username`, `password`, `reset_token`, `reset_expired`, `role`) VALUES
+(1, '', 'jokowi@gmail.com', 'owiowi', '$2y$10$FDxAMlo/6sIxFY2.zb1zkuYW3R27d3O9srH0pWGbfEDgPCXrgWBqK', NULL, NULL, 'user'),
+(2, '', 'dhafapaksi@gmail.com', 'wowo', '$2y$10$M5dA/oPV8lamfYcUmafSJek5MOEWTgxbu2r7Lo6xBYJWAPdBLRMwW', NULL, NULL, 'user'),
+(5, 'Admin2', 'admin2@gmail.com', 'admin2', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 'admin'),
+(6, '', 'dyatmika@gmail.com', 'dyatmika', '$2y$10$CED9bCZdndRO879x67viaOD46TsJwWNXCfFrkO7pwBA5NWtoo28cm', NULL, NULL, 'user');
 
 -- --------------------------------------------------------
 
@@ -306,7 +322,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `antrian`
 --
 ALTER TABLE `antrian`
-  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hasil_konseling`
@@ -318,7 +334,7 @@ ALTER TABLE `hasil_konseling`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `konseling`
@@ -342,13 +358,13 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `psikolog`
