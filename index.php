@@ -57,7 +57,7 @@ $role_user = $_SESSION['role_user'] ?? '';
         /* HERO */
         .hero {
             height: 90vh;
-            background: url('klinik.jpg');
+            background: url('img/klinik.jpeg');
             background-size: cover;
             background-position: center;
             position: relative;
@@ -212,7 +212,7 @@ $role_user = $_SESSION['role_user'] ?? '';
 
         <div class="about-container">
             <div class="about-img">
-                <img src="https://via.placeholder.com/350x350" alt="">
+                <img src="img/psikolog.png" alt="">
             </div>
 
             <div class="about-text">
@@ -244,12 +244,12 @@ $role_user = $_SESSION['role_user'] ?? '';
         <div class="team-container">
 
             <div class="team-card">
-                <img src="https://via.placeholder.com/350x350" alt="">
+                <img src="img/psikolog.png" alt="">
                 <h3>Nama Psikolog</h3>
             </div>
 
             <div class="team-card">
-                <img src="https://via.placeholder.com/350x350" alt="">
+                <img src="img/terapis.png" alt="">
                 <h3>Nama Terapis</h3>
             </div>
 

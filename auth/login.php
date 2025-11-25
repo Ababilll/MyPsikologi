@@ -39,7 +39,7 @@ if (isset($_POST['login'])) {
 
     /* HEADER */
     .header {
-        background: url('../img/header.jpg') center/cover no-repeat;
+        background: url('../img/klinik.jpeg') center/cover no-repeat;
         height: 250px;
         display: flex;
         flex-direction: column;
@@ -55,7 +55,7 @@ if (isset($_POST['login'])) {
     .logo {
         background: white;
         color: #1b2a49;
-        padding: 15px 25px;
+        padding: 25px 25px;
         border-radius: 50%;
         font-weight: bold;
         margin-bottom: 10px;
