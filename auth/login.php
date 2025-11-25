@@ -2,24 +2,51 @@
 session_start();
 include "../config/db.php";
 
-$pesan = ""; // error message
+// Gunakan variabel sesi untuk pesan, lebih baik daripada variabel lokal
+$pesan = ""; 
+if (isset($_SESSION['pesan'])) {
+    $pesan = $_SESSION['pesan'];
+    unset($_SESSION['pesan']); // Hapus pesan setelah ditampilkan sekali
+}
 
 if (isset($_POST['login'])) {
 
-    $email = $_POST['email'];
+    // Sanitasi input untuk keamanan (minimal)
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
     $query = mysqli_query($conn, "SELECT * FROM pengguna WHERE email='$email'");
     $data = mysqli_fetch_array($query);
 
     if (!$data) {
+        // Gagal: Email tidak terdaftar
         $pesan = "Email tidak terdaftar!";
     } else if (password_verify($password, $data['password'])) {
-        $pesan = "Login berhasil!";
-        // header("Location: ../user/dashboard.php");
+        
+        // --- BLOK LOGIN BERHASIL ---
+        
+        // 1. BUAT SESI LOGIN
+        $_SESSION['login_status'] = true;
+        // Simpan data penting pengguna ke sesi (JANGAN simpan password!)
+        $_SESSION['user_id'] = $data['id'];
+        $_SESSION['username'] = $data['username']; // Asumsi ada kolom 'username'
+        
+        // 2. LAKUKAN PENGALIHAN (REDIRECT)
+        $dashboard_url = "../user/home.php"; 
+        
+        header("Location:" . $dashboard_url);
+        exit(); // PENTING: Hentikan eksekusi script setelah redirect
+
     } else {
+        // Gagal: Password salah
         $pesan = "Password salah!";
     }
+    
+    // Simpan pesan gagal ke sesi agar bisa ditampilkan di halaman ini (opsional)
+    // $_SESSION['pesan'] = $pesan;
+    // header("Location: login.php"); // Atau redirect ke halaman ini
+    // exit();
+
 }
 ?>
 

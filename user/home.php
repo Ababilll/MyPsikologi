@@ -1,33 +1,34 @@
 <?php
-// Ganti dengan detail koneksi database Anda
-$servername = "localhost";
-$db_username = "root"; // Ganti
-$db_password = "your_password"; // Ganti
-$dbname = "mypsikolog"; // Ganti
+session_start();
+include "../config/db.php";
 
-// Buat Koneksi
-$conn = new mysqli($servername, $db_username, $db_password, $dbname);
-
-// Periksa koneksi
+// TAMBAHKAN CEK KONEKSI DI SINI
 if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
+    die("Koneksi ke Database Gagal: " . $conn->connect_error);
+}
+/// Pastikan halaman ini hanya bisa diakses setelah login
+if (!isset($_SESSION['login_status']) || $_SESSION['login_status'] !== true) {
+    header("Location: ../auth/login.php");
+    exit();
 }
 
-// ASUMSI: ID Pengguna yang sedang login adalah 1
-$user_id = 1; 
+// 1. Ambil ID Pengguna dari Sesi
+$user_id = $_SESSION['user_id']; 
 
-// Query untuk mengambil username
-$sql = "SELECT username FROM pengguna WHERE id = $user_id";
-$result = $conn->query($sql);
+// 2. Gunakan Prepared Statement (LEBIH AMAN!)
+$sql = "SELECT username FROM pengguna WHERE id_pengguna = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id); // "i" artinya integer
+$stmt->execute();
+$result = $stmt->get_result(); // Mengambil hasil
 
-$username = "Pengguna"; // Default jika gagal
+$username = "Pengguna"; 
 if ($result->num_rows > 0) {
-    // Ambil data baris
     $row = $result->fetch_assoc();
     $username = $row["username"];
 }
 
-$conn->close();
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
