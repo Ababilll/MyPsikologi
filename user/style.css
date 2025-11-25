@@ -47,6 +47,7 @@ body {
 }
 
 .logo {
+    text-decoration: none;
     font-weight: bold;
     color: var(--dark-blue);
     font-size: 1.1em;
@@ -294,4 +295,113 @@ body {
     .menu-icon {
         display: none;
     }
+}
+/* --- SIDEBAR MENU STYLING --- */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px; /* Lebar menu */
+    height: 100%;
+    background-color: #f4f7f6; /* Warna latar belakang menu */
+    color: #333;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 2000; /* Pastikan menu di atas konten lain */
+    
+    /* Aturan untuk menyembunyikan menu di luar layar */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out; 
+    
+    /* Menggunakan Flexbox untuk tata letak menu vertikal */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Class yang akan ditambahkan oleh JavaScript untuk menampilkan menu */
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: flex-end; /* Ikon close di kanan atas */
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.close-icon {
+    font-size: 28px;
+    cursor: pointer;
+    color: #4a90e2;
+}
+
+.profile-placeholder {
+    /* Gaya untuk area kosong di bawah ikon X (opsional) */
+    width: 60px;
+    height: 60px;
+    background-color: #ddd;
+    border-radius: 50%;
+}
+
+.sidebar-menu-list {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1; /* Agar menu mengisi sisa ruang */
+}
+
+.sidebar-menu-list li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.sidebar-menu-list li a:hover,
+.sidebar-menu-list li a.active {
+    background-color: #d9eef7; /* Warna latar belakang saat aktif/hover */
+    color: #4a90e2; /* Warna teks saat aktif/hover */
+    border-left: 5px solid #4a90e2; /* Garis aktif (seperti di desain) */
+    padding-left: 15px; /* Sesuaikan padding karena ada garis */
+}
+
+.sidebar-menu-list li a .material-icons {
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+/* Tombol Keluar (Logout) */
+.sidebar-logout {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    text-decoration: none;
+    color: #e74c3c; /* Warna merah untuk logout */
+    font-weight: 600;
+    border-top: 1px solid #ddd;
+}
+
+.sidebar-logout .material-icons {
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+/* Tambahkan overlay di belakang menu (Hanya muncul saat menu terbuka) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Warna gelap transparan */
+    z-index: 1999;
+    display: none; /* Default tersembunyi */
+}
+.overlay.visible {
+    display: block;
 }

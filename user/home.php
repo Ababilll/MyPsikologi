@@ -69,10 +69,28 @@ if ($stmt = $conn->prepare($sql)) {
 </head>
 <body>
 
+<nav class="sidebar" id="sidebarMenu">
+    <div class="sidebar-header">
+        <span class="material-icons close-icon" onclick="toggleMenu()">close</span>
+        <div class="profile-placeholder"></div>
+    </div>
+    
+    <ul class="sidebar-menu-list">
+        <li><a href="home.php" class="active"><span class="material-icons">dashboard</span> Dashboard</a></li>
+        <li><a href="#"><span class="material-icons">calendar_month</span> Jadwal</a></li>
+        <li><a href="#"><span class="material-icons">history</span> Riwayat Daftar</a></li>
+        <li><a href="#"><span class="material-icons">settings</span> Pengaturan</a></li>
+    </ul>
+
+    <a href="../auth/logout.php" class="sidebar-logout">
+        <span class="material-icons">logout</span> Keluar
+    </a>
+</nav>
+
     <header class="navbar">
         <div class="navbar-left">
-            <span class="material-icons menu-icon">menu</span>
-            <div class="logo">H-Deeja Psychology Center</div>
+            <span class="material-icons menu-icon" onclick="toggleMenu()" id="menuIcon">menu</span>
+            <a href="home.php" class="logo">H-Deeja Psychology Center</a>
         </div>
         <div class="navbar-right">
             <span class="material-icons profile-icon">person</span>
@@ -106,7 +124,7 @@ if ($stmt = $conn->prepare($sql)) {
         <section class="content-cards">
             
             <div class="card-image card-main">
-                <img src="https://via.placeholder.com/800x450/3498db/ffffff?text=Kegiatan+Konseling" alt="Kegiatan Konseling">
+                <img src="../img/ai-generated-9556075_1280.png" alt="Kegiatan Konseling">
                 <p class="card-caption">Kegiatan Konseling</p>
             </div>
 
@@ -114,18 +132,43 @@ if ($stmt = $conn->prepare($sql)) {
                 <blockquote class="quote-box">
                     <p>"Tidak apa-apa untuk merasa lelah. Beristirahat bukan tanda menyerah."</p>
                     <div class="quote-image">
-                        <img src="https://via.placeholder.com/300x200/2ecc71/ffffff?text=Terapis+dan+Klien" alt="Terapis dan Klien">
+                        <img src="../img/psikolog.png" alt="Terapis dan Klien">
                     </div>
                 </blockquote>
             </div>
 
             <div class="card-image card-secondary">
-                <img src="https://via.placeholder.com/800x450/e74c3c/ffffff?text=Konseling+Personal" alt="Konseling Personal">
+                <img src="../img/terapis.png" alt="Konseling Personal">
             </div>
 
         </section>
 
     </main>
 
+    <script>
+    function toggleMenu() {
+        const sidebar = document.getElementById('sidebarMenu');
+        const overlay = document.querySelector('.overlay');
+
+        // Toggle class 'open' pada sidebar
+        sidebar.classList.toggle('open');
+
+        // Toggle class 'visible' pada overlay
+        if (sidebar.classList.contains('open')) {
+            overlay.classList.add('visible');
+        } else {
+            overlay.classList.remove('visible');
+        }
+    }
+
+    // Tambahkan event listener untuk menutup menu saat overlay diklik
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        overlay.setAttribute('onclick', 'toggleMenu()');
+        document.body.appendChild(overlay);
+    });
+
+</script>
 </body>
 </html>
