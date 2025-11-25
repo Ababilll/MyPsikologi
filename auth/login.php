@@ -28,7 +28,7 @@ if (isset($_POST['login'])) {
         // 1. BUAT SESI LOGIN
         $_SESSION['login_status'] = true;
         // Simpan data penting pengguna ke sesi (JANGAN simpan password!)
-        $_SESSION['user_id'] = $data['id'];
+        $_SESSION['user_id'] = $data['id_pengguna'];
         $_SESSION['username'] = $data['username']; // Asumsi ada kolom 'username'
         
         // 2. LAKUKAN PENGALIHAN (REDIRECT)

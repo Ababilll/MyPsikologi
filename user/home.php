@@ -2,33 +2,60 @@
 session_start();
 include "../config/db.php";
 
-// TAMBAHKAN CEK KONEKSI DI SINI
+// 1. CEK KONEKSI (Sudah Anda lakukan, bagus!)
 if ($conn->connect_error) {
     die("Koneksi ke Database Gagal: " . $conn->connect_error);
 }
-/// Pastikan halaman ini hanya bisa diakses setelah login
+
+// 2. CEK STATUS LOGIN (Sudah Anda lakukan, bagus!)
 if (!isset($_SESSION['login_status']) || $_SESSION['login_status'] !== true) {
     header("Location: ../auth/login.php");
     exit();
 }
 
-// 1. Ambil ID Pengguna dari Sesi
+// 3. AMBIL ID DARI SESI
 $user_id = $_SESSION['user_id']; 
 
-// 2. Gunakan Prepared Statement (LEBIH AMAN!)
-$sql = "SELECT username FROM pengguna WHERE id_pengguna = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $user_id); // "i" artinya integer
-$stmt->execute();
-$result = $stmt->get_result(); // Mengambil hasil
-
 $username = "Pengguna"; 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $username = $row["username"];
+
+// 4. PERSIAPAN DAN EKSEKUSI STATEMENT DENGAN PENGECEKAN ERROR
+
+$sql = "SELECT username FROM pengguna WHERE id_pengguna = ?";
+
+// Pengecekan 1: Apakah Statement berhasil dipersiapkan?
+if ($stmt = $conn->prepare($sql)) {
+    
+    $stmt->bind_param("i", $user_id);
+    
+    // Pengecekan 2: Apakah Statement berhasil dieksekusi?
+    if ($stmt->execute()) {
+        
+        $result = $stmt->get_result(); 
+        
+        // Pengecekan 3: Apakah ada baris yang dikembalikan?
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $username = htmlspecialchars($row["username"]);
+        }
+        
+    } else {
+        // Gagal Eksekusi
+        // Anda bisa log error ini di sistem Anda: $stmt->error
+        error_log("Gagal Eksekusi Query: " . $stmt->error);
+        $username = "ErrorExec";
+    }
+    
+    $stmt->close();
+    
+} else {
+    // Gagal Persiapan Query
+    // Sering terjadi jika nama tabel/kolom salah, atau error sintaks SQL.
+    error_log("Gagal Persiapan Query: " . $conn->error);
+    $username = "ErrorPrepare";
 }
 
-$stmt->close();
+// Opsional: Tutup koneksi di akhir halaman
+// $conn->close();
 ?>
 
 <!DOCTYPE html>
