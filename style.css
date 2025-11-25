@@ -42,7 +42,11 @@ body {
 /* HERO */
 .hero {
     height: 90vh;
-    background: image(klinik.jpg)
+    background: url(img/klinik.jpeg);
+    background-size: cover;          
+    background-position: center;     
+    background-repeat: no-repeat;
+    opacity: 0.92;
     position: relative;
     display: flex;
     align-items: center;
