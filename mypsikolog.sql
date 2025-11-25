@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 25, 2025 at 07:28 AM
+-- Host: 127.0.0.1:3307
+-- Generation Time: Nov 25, 2025 at 04:23 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -71,9 +71,21 @@ CREATE TABLE `jadwal` (
   `id_jadwal` int(11) NOT NULL,
   `id_psikolog` int(11) NOT NULL,
   `tanggal` date NOT NULL,
-  `waktu` varchar(50) NOT NULL,
-  `kuota` int(11) DEFAULT 1
+  `waktu_mulai` time(3) NOT NULL,
+  `waktu_selesai` time(3) NOT NULL,
+  `kuota` int(11) DEFAULT 4,
+  `terisi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jadwal`
+--
+
+INSERT INTO `jadwal` (`id_jadwal`, `id_psikolog`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `kuota`, `terisi`) VALUES
+(1, 1, '2025-11-26', '08:00:00.000', '12:00:00.000', 4, 0),
+(2, 2, '2025-11-26', '08:00:00.000', '12:00:00.000', 4, 0),
+(3, 3, '2025-11-26', '08:00:00.000', '12:00:00.000', 4, 0),
+(4, 1, '2025-11-27', '08:00:00.000', '12:00:00.000', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -119,6 +131,22 @@ CREATE TABLE `pembayaran` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pemesanan`
+--
+
+CREATE TABLE `pemesanan` (
+  `id_pemesanan` int(11) NOT NULL,
+  `id_jadwal` int(11) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
+  `nama_lengkap` varchar(100) NOT NULL,
+  `nomor_telepon` varchar(20) NOT NULL,
+  `tanggal_pesan` datetime DEFAULT current_timestamp(),
+  `status_pemesanan` varchar(50) DEFAULT 'Menunggu Pembayaran'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pengguna`
 --
 
@@ -137,7 +165,8 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `nama`, `email`, `username`, `password`, `reset_token`, `reset_expired`) VALUES
-(1, '', 'jokowi@gmail.com', 'owiowi', '$2y$10$FDxAMlo/6sIxFY2.zb1zkuYW3R27d3O9srH0pWGbfEDgPCXrgWBqK', NULL, NULL);
+(1, '', 'jokowi@gmail.com', 'owiowi', '$2y$10$FDxAMlo/6sIxFY2.zb1zkuYW3R27d3O9srH0pWGbfEDgPCXrgWBqK', NULL, NULL),
+(2, '', 'dhafapaksi@gmail.com', 'wowo', '$2y$10$M5dA/oPV8lamfYcUmafSJek5MOEWTgxbu2r7Lo6xBYJWAPdBLRMwW', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -151,6 +180,15 @@ CREATE TABLE `psikolog` (
   `spesialisasi` varchar(255) DEFAULT NULL,
   `jadwalTersedia` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `psikolog`
+--
+
+INSERT INTO `psikolog` (`id_psikolog`, `nama`, `spesialisasi`, `jadwalTersedia`) VALUES
+(1, 'Wito', 'Psikolog Klinis', NULL),
+(2, 'Cessia', 'Psikolog Pendidikan', NULL),
+(3, 'ZhanQ', 'Psikolog Konseling', NULL);
 
 -- --------------------------------------------------------
 
@@ -224,6 +262,14 @@ ALTER TABLE `pembayaran`
   ADD KEY `id_konseling` (`id_konseling`);
 
 --
+-- Indexes for table `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  ADD PRIMARY KEY (`id_pemesanan`),
+  ADD KEY `id_jadwal` (`id_jadwal`),
+  ADD KEY `id_pengguna` (`id_pengguna`);
+
+--
 -- Indexes for table `pengguna`
 --
 ALTER TABLE `pengguna`
@@ -272,7 +318,7 @@ ALTER TABLE `hasil_konseling`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `konseling`
@@ -293,16 +339,22 @@ ALTER TABLE `pembayaran`
   MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `psikolog`
 --
 ALTER TABLE `psikolog`
-  MODIFY `id_psikolog` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_psikolog` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rekam_medis`
@@ -347,6 +399,13 @@ ALTER TABLE `konseling`
 --
 ALTER TABLE `pembayaran`
   ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_konseling`) REFERENCES `konseling` (`id_konseling`);
+
+--
+-- Constraints for table `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  ADD CONSTRAINT `pemesanan_ibfk_1` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal` (`id_jadwal`),
+  ADD CONSTRAINT `pemesanan_ibfk_2` FOREIGN KEY (`id_pengguna`) REFERENCES `pengguna` (`id_pengguna`);
 
 --
 -- Constraints for table `rekam_medis`
