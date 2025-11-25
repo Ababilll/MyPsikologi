@@ -1,0 +1,297 @@
+/* --- Global Reset & Variables --- */
+:root {
+    --primary-blue: #3498db;
+    --dark-blue: #2c3e50;
+    --light-bg: #f4f7f6;
+    --success-green: #2ecc71;
+    --error-red: #e74c3c;
+    --text-dark: #333;
+    --text-light: #fff;
+    --card-bg: #fff;
+    --spacing: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+}
+
+/* --- NAVBAR --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px var(--spacing);
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.menu-icon {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.logo {
+    font-weight: bold;
+    color: var(--dark-blue);
+    font-size: 1.1em;
+}
+
+.profile-icon {
+    font-size: 1.8em;
+    color: var(--primary-blue);
+    cursor: pointer;
+}
+
+/* --- MAIN CONTAINER --- */
+.dashboard-container {
+    padding: var(--spacing);
+    max-width: 900px; /* Batasan lebar untuk desktop */
+    margin: 0 auto;
+}
+
+/* --- WELCOME CARD (The Blue Header) --- */
+.welcome-card {
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+    padding: 30px var(--spacing);
+    margin-top: 15px;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Bentuk melengkung di bagian atas (seperti di screenshot) */
+.welcome-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150%;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.2); /* Efek bayangan/gradasi */
+    border-radius: 0 0 50% 50%;
+}
+
+.welcome-title {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    position: relative;
+    color: var(--text-light);
+}
+
+.welcome-message {
+    font-size: 0.9em;
+    opacity: 0.9;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.arrow-down-icon {
+    font-size: 1.2em;
+    margin-left: 3px;
+}
+
+/* --- ACTION BUTTONS --- */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    flex-grow: 1; /* Agar tombol mengisi ruang yang tersedia */
+}
+
+.btn-result {
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+}
+
+.btn-medical-record {
+    background-color: var(--dark-blue);
+    color: var(--text-light);
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* --- FEEDBACK SECTION --- */
+.feedback-section {
+    text-align: center;
+    margin: 30px 0 20px;
+}
+
+.feedback-section p {
+    margin-bottom: 10px;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.feedback-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-feedback {
+    width: 100px;
+    padding: 8px 15px;
+    border: 1px solid var(--primary-blue);
+    background-color: var(--card-bg);
+    color: var(--primary-blue);
+}
+
+.btn-feedback:active, .btn-feedback.active {
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+}
+
+/* --- CONTENT CARDS (FLEXIBLE LAYOUT) --- */
+.content-cards {
+    display: flex;
+    flex-direction: column; /* Default: stack vertically on mobile */
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-main {
+    background-color: var(--card-bg);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-caption {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--dark-blue);
+}
+
+/* Quote Card Style */
+.card-quote {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.quote-box {
+    padding: 20px;
+    background-color: #ecf0f1; /* Light gray background for quote */
+    border-radius: 10px;
+}
+
+.quote-box p {
+    font-style: italic;
+    font-size: 1.1em;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    color: var(--dark-blue);
+    position: relative;
+    z-index: 2;
+}
+
+.quote-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50%; 
+    height: 100%;
+    overflow: hidden;
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%); /* Membuat bentuk miring seperti di desain */
+}
+
+.quote-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8; 
+}
+
+/* Card image kedua */
+.card-secondary img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* --- RESPONSIVENESS (Media Queries) --- */
+
+/* Tablet & Desktop Layout */
+@media (min-width: 600px) {
+    
+    .logo {
+        font-size: 1.2em;
+    }
+    
+    /* Tombol lebih besar dan side-by-side */
+    .action-buttons {
+        gap: 20px;
+    }
+    
+    /* Konten Card menggunakan Grid untuk tata letak desktop */
+    .content-cards {
+        display: grid;
+        grid-template-columns: 2fr 1fr; /* Kolom utama lebih lebar */
+        grid-template-rows: auto auto;
+        gap: 20px;
+    }
+
+    /* Mengatur posisi Card di Grid */
+    .card-main {
+        grid-column: 1 / 3; /* Card utama mengambil penuh dua kolom di desktop */
+    }
+
+    .card-quote {
+        grid-column: 1 / 2; /* Quote di kolom kiri */
+    }
+
+    .card-secondary {
+        grid-column: 2 / 3; /* Card sekunder di kolom kanan */
+    }
+
+    .quote-image {
+        /* Sesuaikan clip-path untuk desktop */
+        clip-path: polygon(40% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+}
+
+/* Sembunyikan ikon menu di desktop */
+@media (min-width: 900px) {
+    .menu-icon {
+        display: none;
+    }
+}
