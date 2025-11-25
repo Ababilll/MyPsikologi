@@ -77,9 +77,9 @@ if ($stmt = $conn->prepare($sql)) {
     
     <ul class="sidebar-menu-list">
         <li><a href="home.php" class="active"><span class="material-icons">dashboard</span> Dashboard</a></li>
-        <li><a href="#"><span class="material-icons">calendar_month</span> Jadwal</a></li>
-        <li><a href="#"><span class="material-icons">history</span> Riwayat Daftar</a></li>
-        <li><a href="#"><span class="material-icons">settings</span> Pengaturan</a></li>
+        <li><a href="jadwal.php"><span class="material-icons">calendar_month</span> Jadwal</a></li>
+        <li><a href="riwayat.php"><span class="material-icons">history</span> Riwayat Daftar</a></li>
+        <li><a href="setting.php"><span class="material-icons">settings</span> Pengaturan</a></li>
     </ul>
 
     <a href="../auth/logout.php" class="sidebar-logout">
@@ -91,9 +91,6 @@ if ($stmt = $conn->prepare($sql)) {
         <div class="navbar-left">
             <span class="material-icons menu-icon" onclick="toggleMenu()" id="menuIcon">menu</span>
             <a href="home.php" class="logo">H-Deeja Psychology Center</a>
-        </div>
-        <div class="navbar-right">
-            <span class="material-icons profile-icon">person</span>
         </div>
     </header>
 
@@ -108,10 +105,16 @@ if ($stmt = $conn->prepare($sql)) {
         </p>
     </section>
 
-        <section class="action-buttons">
-            <a href="#" class="btn btn-result">Hasil Konseling Anda</a>
-            <a href="#" class="btn btn-medical-record">Rekam Medis</a>
-        </section>
+    <div class="action-buttons">
+    
+    <a href="hasil.php" class="btn btn-result">
+        Hasil Konseling Anda
+    </a> 
+    
+    <a href="#" class="btn btn-medical-record">
+        Rekam Medis
+    </a>
+</div>
 
         <section class="feedback-section">
             <p>Apakah anda puas dengan pelayanan kami?</p>
