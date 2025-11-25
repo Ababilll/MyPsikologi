@@ -1,7 +1,6 @@
 <?php
 require_once "db.php";
 
-
 $email     = $_POST['email'];
 $username  = $_POST['username'];
 $password  = password_hash($_POST['password'], PASSWORD_BCRYPT);
