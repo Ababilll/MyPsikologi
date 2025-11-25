@@ -1,22 +1,28 @@
 <?php
-require "../config/db.php";
+require_once "../config/db.php";
 
-if (!isset($_GET['token'])) {
-    die("Token tidak ada");
-}
+$pesan = "";
 
-$token = $_GET['token'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-$q = mysqli_query($conn, "SELECT * FROM pengguna WHERE reset_token='$token'");
-$data = mysqli_fetch_assoc($q);
+    $email     = $_POST['email'];
+    $username  = $_POST['username'];
+    $password  = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-if (!$data) {
-    die("Token tidak valid.");
-}
+    $cek = mysqli_query($conn, "SELECT * FROM pengguna WHERE email='$email'");
+    if (mysqli_num_rows($cek) > 0) {
+        $pesan = "Email sudah digunakan!";
+    } else {
+        $sql = "INSERT INTO pengguna (email, username, password) 
+                VALUES ('$email', '$username', '$password')";
 
-// cek waktu expired
-if (strtotime($data['reset_expired']) < time()) {
-    die("Token sudah kadaluarsa. Silakan request baru.");
+        if (mysqli_query($conn, $sql)) {
+            header("Location: login.php");
+            exit;
+        } else {
+            $pesan = "Gagal daftar: " . mysqli_error($conn);
+        }
+    }
 }
 ?>
 
@@ -25,7 +31,7 @@ if (strtotime($data['reset_expired']) < time()) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reset Password - H-Deeja Psychology Center</title>
+<title>Daftar Akun - H-Deeja Psychology Center</title>
 
 <style>
     body {
@@ -34,7 +40,8 @@ if (strtotime($data['reset_expired']) < time()) {
         background: #d9eef7;
     }
 
-        .header {
+    /* HEADER */
+    .header {
         background: url('../img/header.jpg') center/cover no-repeat;
         height: 250px;
         display: flex;
@@ -57,7 +64,12 @@ if (strtotime($data['reset_expired']) < time()) {
         margin-bottom: 10px;
     }
 
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+    }
 
+    /* FORM WRAPPER */
     .container {
         max-width: 420px;
         margin: 0 auto;
@@ -102,24 +114,47 @@ if (strtotime($data['reset_expired']) < time()) {
         box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
+    button:hover {
+        opacity: .9;
+    }
+
     .bottom {
         text-align: center;
         margin-top: 10px;
         font-size: 14px;
     }
 
-    /* RESPONSIVE */
-    @media (min-width: 768px) {
-        .header { height: 300px; }
-        .container { max-width: 480px; }
-        input { font-size: 16px; }
+    .bottom a {
+        color: #1c8fe6;
+        font-weight: 600;
+        text-decoration: none;
     }
 
+    .error {
+        color: red;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    /* RESPONSIVE TABLET */
+    @media (min-width: 768px) {
+        .header {
+            height: 330px;
+        }
+        .container {
+            max-width: 480px;
+        }
+        input {
+            font-size: 16px;
+        }
+    }
+
+    /* RESPONSIVE DESKTOP */
     @media (min-width: 1100px) {
         .header {
-            height: 350px;
             border-bottom-left-radius: 60px;
             border-bottom-right-radius: 60px;
+            height: 380px;
         }
     }
 </style>
@@ -129,25 +164,31 @@ if (strtotime($data['reset_expired']) < time()) {
 
 <div class="header">
     <div class="logo">Logo</div>
-    <span style="font-size: 20px; font-weight: bold;">H-Deeja Psychology Center</span>
+    <span class="title">H-Deeja Psychology Center</span>
 </div>
 
 <div class="container">
-    <h2>Buat Kata Sandi Baru</h2>
+    <h2>Daftar</h2>
 
-    <form action="reset_proses.php" method="POST">
-        <input type="hidden" name="token" value="<?php echo $token ?>">
+    <?php if ($pesan != "") { ?>
+        <p class="error"><?= $pesan ?></p>
+    <?php } ?>
 
-        <label>Kata Sandi Baru</label>
+    <form action="" method="POST">
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Kata Sandi</label>
         <input type="password" name="password" required>
 
-        <label>Konfirmasi Sandi Baru</label>
-        <input type="password" name="password2" required>
-
-        <button type="submit">Simpan</button>
+        <button type="submit">Daftar</button>
 
         <div class="bottom">
-            <a href="login.php">Kembali ke Login</a>
+            Sudah punya akun? <a href="login.php">Masuk</a>
         </div>
     </form>
 </div>

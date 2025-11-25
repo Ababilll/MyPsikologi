@@ -1,5 +1,5 @@
 <?php
-require "db.php";
+require "../config/db.php";
 
 $token = $_POST['token'];
 $pass  = $_POST['password'];
@@ -19,7 +19,7 @@ $data = mysqli_fetch_assoc($q);
 if (!$data) {
     echo "<script>
         alert('Token tidak valid!');
-        window.location='../auth/lupa.html';
+        window.location='../auth/lupapassword.php';
     </script>";
     exit;
 }
@@ -28,7 +28,7 @@ if (!$data) {
 if (strtotime($data['reset_expired']) < time()) {
     echo "<script>
         alert('Token sudah kadaluarsa! Silakan request lupa password baru.');
-        window.location='lupa.html';
+        window.location='password.php';
     </script>";
     exit;
 }
@@ -45,5 +45,5 @@ mysqli_query($conn, "
 
 echo "<script>
     alert('Password berhasil direset! Silakan login menggunakan password baru.');
-    window.location='login.html';
+    window.location='login.php';
 </script>";

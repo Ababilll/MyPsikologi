@@ -1,31 +1,9 @@
-<?php
-require "../config/db.php";
-
-if (!isset($_GET['token'])) {
-    die("Token tidak ada");
-}
-
-$token = $_GET['token'];
-
-$q = mysqli_query($conn, "SELECT * FROM pengguna WHERE reset_token='$token'");
-$data = mysqli_fetch_assoc($q);
-
-if (!$data) {
-    die("Token tidak valid.");
-}
-
-// cek waktu expired
-if (strtotime($data['reset_expired']) < time()) {
-    die("Token sudah kadaluarsa. Silakan request baru.");
-}
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reset Password - H-Deeja Psychology Center</title>
+<title>Lupa Password - H-Deeja Psychology Center</title>
 
 <style>
     body {
@@ -34,7 +12,8 @@ if (strtotime($data['reset_expired']) < time()) {
         background: #d9eef7;
     }
 
-        .header {
+    /* HEADER */
+    .header {
         background: url('../img/header.jpg') center/cover no-repeat;
         height: 250px;
         display: flex;
@@ -57,7 +36,7 @@ if (strtotime($data['reset_expired']) < time()) {
         margin-bottom: 10px;
     }
 
-
+    /* CONTENT WRAPPER */
     .container {
         max-width: 420px;
         margin: 0 auto;
@@ -108,16 +87,28 @@ if (strtotime($data['reset_expired']) < time()) {
         font-size: 14px;
     }
 
+    .bottom a {
+        color: #1c8fe6;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .msg-success {
+        color: green;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
     /* RESPONSIVE */
     @media (min-width: 768px) {
-        .header { height: 300px; }
+        .header { height: 330px; }
         .container { max-width: 480px; }
         input { font-size: 16px; }
     }
 
     @media (min-width: 1100px) {
         .header {
-            height: 350px;
+            height: 380px;
             border-bottom-left-radius: 60px;
             border-bottom-right-radius: 60px;
         }
@@ -133,21 +124,23 @@ if (strtotime($data['reset_expired']) < time()) {
 </div>
 
 <div class="container">
-    <h2>Buat Kata Sandi Baru</h2>
+    <h2>Lupa Kata Sandi?</h2>
 
-    <form action="reset_proses.php" method="POST">
-        <input type="hidden" name="token" value="<?php echo $token ?>">
+    <?php 
+    if (isset($_GET['msg'])) {
+        echo "<p class='msg-success'>".$_GET['msg']."</p>";
+    }
+    ?>
 
-        <label>Kata Sandi Baru</label>
-        <input type="password" name="password" required>
+    <form action="lupapassword_proses.php" method="POST">
 
-        <label>Konfirmasi Sandi Baru</label>
-        <input type="password" name="password2" required>
+        <label>Email</label>
+        <input type="email" name="email" required>
 
-        <button type="submit">Simpan</button>
+        <button type="submit">Kirim</button>
 
         <div class="bottom">
-            <a href="login.php">Kembali ke Login</a>
+            Ingat kata sandi? <a href="login.php">Masuk</a>
         </div>
     </form>
 </div>
