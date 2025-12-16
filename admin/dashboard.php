@@ -22,21 +22,44 @@ if (!isset($_SESSION['login_status']) || $_SESSION['role'] !== 'admin') {
 <div class="main-content">
     <div class="topbar">
         <i class="fas fa-bars menu-toggle" id="menuToggle"></i>
-        <h2>Selamat Datang, <?= htmlspecialchars($_SESSION['nama'] ?? 'Admin') ?> </h2>
-        <i class="fas fa-bell" style="font-size:22px;"></i>
+        <h2>H-Deeja Psychology Center </h2>
+        <i class="fas fa-user" style="font-size:22px;"></i>
     </div>
 
-    <!-- isi dashboard kamu tetap sama -->
-    <div style="background:var(--primary);color:white;padding:25px;border-radius:16px;text-align:center;margin-bottom:25px;">
-        <h1>Pengolahan Antrian</h1>
-        <div class="filter-month" style="justify-content:center;margin:15px 0;">
+   <!-- CARD UTAMA DENGAN TULISAN DI KIRI & GAMBAR DI KANAN (DESKTOP) -->
+<div style="background:var(--primary);color:white;padding:30px;border-radius:16px;margin-bottom:30px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:30px;">
+    <!-- BAGIAN KIRI: TULISAN -->
+    <div style="flex:1;min-width:300px;text-align:left;">
+        <h1 style="font-size:32px;margin-bottom:10px;">
+            Selamat Datang, <?= htmlspecialchars($_SESSION['nama'] ?? 'Admin') ?>
+        </h1>
+        <h4 style="margin-bottom:20px;opacity:0.9;">Pengolahan Sistem Antrian</h4>
+        
+        <div class="filter-month" style="justify-content:flex-start;margin:15px 0;">
             <span class="active">Terbaru</span>
             <span class="active">Riwayat</span>
         </div>
-        <img src="https://via.placeholder.com/120x80/2c3e50/ffffff?text=Graph" style="border-radius:8px;">
     </div>
 
+    <!-- BAGIAN KANAN: GAMBAR -->
+    <div style="flex:1;min-width:300px;text-align:center;">
+        <img src="../img/Screenshot (163).png"
+             style="
+                border-radius:12px;
+                max-width:90%;
+                width:500px;
+                height:auto;
+                box-shadow:0 8px 25px rgba(0,0,0,0.4);
+                border:3px solid rgba(255,255,255,0.2);
+             ">
+    </div>
+</div>
+
     <div style="display:flex;gap:15px;margin:25px 0;flex-wrap:wrap;">
+        <div style="background:white;flex:1;min-width:120px;padding:20px;border-radius:14px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.08);">
+            <i class="fas fa-user" style="font-size:30px;color:#3498db;"></i>
+            <h2>50</h2><p>Pasien terdaftar</p>
+        </div>
         <div style="background:white;flex:1;min-width:120px;padding:20px;border-radius:14px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.08);">
             <i class="fas fa-star" style="font-size:30px;color:#f39c12;"></i>
             <h2>95%</h2><p>Pasien puas</p>

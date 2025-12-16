@@ -1,6 +1,6 @@
 <!-- admin/includes/sidebar.php -->
 <div class="sidebar" id="sidebar">
-    <div class="sidebar-header"><h3>H-Deja Center</h3></div>
+    <div class="sidebar-header"><h3>KlinikCare</h3></div>
     <ul class="sidebar-menu">
         <li><a href="dashboard.php" <?= basename($_SERVER['PHP_SELF'])=='dashboard.php'?'class="active"':'' ?>><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
         <li><a href="kelola_jadwal.php" <?= basename($_SERVER['PHP_SELF'])=='kelola_jadwal.php'?'class="active"':'' ?>><i class="fas fa-calendar-alt"></i> Kelola Jadwal</a></li>
