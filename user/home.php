@@ -127,21 +127,21 @@ if ($stmt = $conn->prepare($sql)) {
         <section class="content-cards">
             
             <div class="card-image card-main">
-                <img src="../img/ai-generated-9556075_1280.png" alt="Kegiatan Konseling">
+                <img src="../img/pexels-shvets-production-7176026.jpg" alt="Kegiatan Konseling">
                 <p class="card-caption">Kegiatan Konseling</p>
             </div>
 
             <div class="card-quote">
                 <blockquote class="quote-box">
-                    <p>"Tidak apa-apa untuk merasa lelah. Beristirahat bukan tanda menyerah."</p>
+                    <p>"Tidak apa merasa lelah. Istirahat bukan tanda menyerah."</p>
                     <div class="quote-image">
-                        <img src="../img/psikolog.png" alt="Terapis dan Klien">
+                        <img src="../img/vitaly-gariev-R3i5-2Y6O2c-unsplash.jpg" alt="Terapis dan Klien">
                     </div>
                 </blockquote>
             </div>
 
             <div class="card-image card-secondary">
-                <img src="../img/terapis.png" alt="Konseling Personal">
+                <img src="../img/Screenshot (162).png" alt="Konseling Personal">
             </div>
 
         </section>
