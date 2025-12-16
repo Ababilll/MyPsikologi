@@ -480,7 +480,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['tampilkan_jadwal'])) {
                         <div class="schedule-item"><?= htmlspecialchars($waktu_display) ?></div>
                         <div class="schedule-item"><span class="status-badge <?= $status_class ?>"><?= $status_text ?></span></div>
                         <div>
-                            <a href="<?= $button_link ?>" class="btn-daftar <?= $button_class ?>">Daftar</a>
+                            <?php if ($sisa_kuota > 0): ?>
+                                <a href="daftar.php?id=<?= $schedule['id_jadwal'] ?>" class="btn-daftar <?= $button_class ?>">
+                                    Daftar
+                                </a>
+                            <?php else: ?>
+                                <span class="btn-daftar disabled">Penuh</span>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
