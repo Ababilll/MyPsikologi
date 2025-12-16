@@ -11,6 +11,9 @@ $role_user = $_SESSION['role_user'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>H-Deeja Psychology Center</title>
 
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- CSS internal -->
     <style>
         /* FONT & RESET */
@@ -43,6 +46,7 @@ $role_user = $_SESSION['role_user'] ?? '';
 
         .logo {
             font-weight: 600;
+            font-size: 20px;
         }
 
         .btn-login {
@@ -52,6 +56,7 @@ $role_user = $_SESSION['role_user'] ?? '';
             color: #1e3a8a;
             text-decoration: none;
             font-size: 14px;
+            font-weight: 600;
         }
 
         /* HERO */
@@ -95,12 +100,79 @@ $role_user = $_SESSION['role_user'] ?? '';
             text-decoration: none;
             border-radius: 25px;
             font-weight: 600;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #3ab3d8;
         }
 
         .center {
             display: block;
             margin: 30px auto 0 auto;
             width: fit-content;
+        }
+
+        /* === LAYANAN KAMI === */
+        .services {
+            padding: 80px 60px;
+            background: #f8fdff;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+
+        .services p.subtitle {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #56ccf2;
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #1e3a8a;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
         }
 
         /* ABOUT */
@@ -170,39 +242,106 @@ $role_user = $_SESSION['role_user'] ?? '';
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-
             .hero {
                 padding-left: 20px;
                 justify-content: center;
                 text-align: center;
             }
 
-            .about-container {
+            .about-container, .team-container {
                 flex-direction: column;
             }
 
-            .team-container {
-                flex-direction: column;
-                align-items: center;
+            .services, .about, .team {
+                padding: 60px 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
             }
         }
     </style>
-
 </head>
 <body>
 
     <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="logo">H-Deeja Psychology Center</div>
-        <a href="auth/login.php" class="btn-login">Masuk</a>
-    </header>
+<header class="navbar">
+    <div class="logo-wrapper" style="display: flex; align-items: center; gap: 12px;">
+        <!-- GAMBAR LOGO -->
+        <img src="img/logo.png" alt="H-Deeja Logo" style="height: 40px; width: auto;">
+        
+        <!-- TULISAN -->
+        <div class="logo" style="font-weight: 600; font-size: 20px; color: #1e3a8a;">
+            H-Deeja Psychology Center
+        </div>
+    </div>
+
+    <!-- Tombol Masuk tetap di kanan -->
+    <a href="auth/login.php" class="btn-login">Masuk</a>
+</header>
 
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="overlay"></div>
         <div class="hero-content">
             <h1>Kamu Tidak Sendiri. <span>Kami Siap</span> Mendengarkan</h1>
-            <a href="#" class="btn-primary">Mulai Konseling</a>
+            <a href="auth/login.php" class="btn-primary">Mulai Konseling</a>
+        </div>
+    </section>
+
+    <!-- LAYANAN KAMI -->
+    <section class="services">
+        <h2>Layanan Kami</h2>
+        <p class="subtitle">Kami menyediakan berbagai layanan profesional untuk mendukung kesehatan mental Anda, keluarga, dan organisasi</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">👦</div>
+                <h3>Konseling Anak & Remaja</h3>
+                <p>Bantuan psikologis khusus untuk anak dan remaja dalam menghadapi tantangan perkembangan dan emosional.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🧑</div>
+                <h3>Konseling Dewasa</h3>
+                <p>Konsultasi individu untuk mengatasi stres, kecemasan, depresi, dan masalah kehidupan sehari-hari.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">👨‍👩‍👧‍👦</div>
+                <h3>Konseling Keluarga</h3>
+                <p>Terapi untuk memperbaiki komunikasi, menyelesaikan konflik, dan memperkuat hubungan keluarga.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🧩</div>
+                <h3>Pendampingan ABK</h3>
+                <p>Pendampingan khusus untuk anak berkebutuhan khusus (autisme, ADHD, dll) dan dukungan orang tua.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🧠</div>
+                <h3>Terapi Psikologi</h3>
+                <p>Terapi untuk anak, remaja, dan dewasa dengan pendekatan berbasis bukti (CBT, Play Therapy, dll).</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Tes Psikologi</h3>
+                <p>Tes IQ, kepribadian, minat bakat, dan asesmen psikologis lainnya dengan alat standar.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">👩‍🏫</div>
+                <h3>Seminar Parenting</h3>
+                <p>Workshop dan pelatihan untuk orang tua dalam mendidik dan memahami anak dengan lebih baik.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💼</div>
+                <h3>Asesmen Karyawan & Rekrutmen</h3>
+                <p>Tes psikologi untuk rekrutmen, promosi jabatan, dan pengembangan SDM perusahaan.</p>
+            </div>
         </div>
     </section>
 
@@ -212,19 +351,19 @@ $role_user = $_SESSION['role_user'] ?? '';
 
         <div class="about-container">
             <div class="about-img">
-                <img src="img/psikolog.png" alt="">
+                <img src="img/psikolog.png" alt="Tim H-Deeja">
             </div>
 
             <div class="about-text">
                 <p>
                     H-Deeja Psychology Center adalah pusat layanan psikologi yang berfokus pada peningkatan kesehatan mental masyarakat.
-                    Kami menyediakan berbagai layanan seperti: konsultasi anak, remaja, dewasa, keluarga, terapi psikologi, tes psikologi,
-                    seminar, dan pelatihan.
+                    Kami menyediakan berbagai layanan seperti konseling anak, remaja, dewasa, keluarga, terapi psikologi, pendampingan ABK,
+                    tes psikologi, seminar parenting, asesmen karyawan, dan outbound training.
                 </p>
 
                 <p>
-                    Dengan tenaga profesional bersertifikat, 
-                    H-Deeja Psychology Center berkomitmen memberikan pelayanan yang ramah, profesional, dan berbasis etika psikologi.
+                    Dengan tenaga profesional bersertifikat, kami berkomitmen memberikan pelayanan yang ramah, profesional,
+                    dan berbasis etika psikologi.
                 </p>
 
                 <p class="info">
@@ -242,20 +381,18 @@ $role_user = $_SESSION['role_user'] ?? '';
         <h2>Tim Psikolog</h2>
 
         <div class="team-container">
-
             <div class="team-card">
-                <img src="img/psikolog.png" alt="">
-                <h3>Nama Psikolog</h3>
+                <img src="img/psikolog.png" alt="Psikolog 1">
+                <h3>Rizal Ahmad, M.Psi</h3>
             </div>
 
             <div class="team-card">
-                <img src="img/terapis.png" alt="">
-                <h3>Nama Terapis</h3>
+                <img src="img/terapis.png" alt="Psikolog 2">
+                <h3>Dr. Sarah Wijaya, M.Psi</h3>
             </div>
-
         </div>
 
-        <a href="#" class="btn-primary center">Daftar Konseling</a>
+        <a href="auth/login.php" class="btn-primary center">Daftar Konseling Sekarang</a>
     </section>
 
 </body>

@@ -118,9 +118,12 @@
 
 <body>
 
+<!-- HEADER DENGAN LOGO GAMBAR DI TENGAH -->
 <div class="header">
-    <div class="logo">Logo</div>
-    <span style="font-size: 20px; font-weight: bold;">H-Deeja Psychology Center</span>
+    <!-- GAMBAR LOGO DI TENGAH -->
+    <img src="../img/logo.png" alt="H-Deeja Psychology Center" style="height: 100px; width: auto; margin-bottom: 15px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+
+    <span style="font-size:24px;font-weight:bold;">H-Deeja Psychology Center</span>
 </div>
 
 <div class="container">
