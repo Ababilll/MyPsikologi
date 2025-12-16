@@ -72,12 +72,24 @@ if (!isset($_SESSION['login_status']) || $_SESSION['role'] !== 'admin') {
 
     <a href="kelola_jadwal.php" class="btn-add">+ Tambah Jadwal Baru</a>
 
-    <div style="background:#e3f2fd;height:120px;border-radius:14px;margin-bottom:15px;overflow:hidden;">
-        <img src="https://via.placeholder.com/600x180/e3f2fd/666?text=Jadwal+Hari+Ini" style="width:100%;height:100%;object-fit:cover;">
+<!-- JADWAL HARI INI & BESOK - MEMANJANG PENUH SEPERTI ASLINYA -->
+<div style="margin:30px 0;">
+    <!-- JADWAL HARI INI -->
+    <div style="background:#e3f2fd;border-radius:14px;overflow:hidden;position:relative;margin-bottom:20px;box-shadow:0 6px 20px rgba(0,0,0,0.08);">
+        <div style="width:100%;height:100%;">
+        </div>
+        <img src="../img/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
+             style="width:100%;height:180px;object-fit:cover;display:block;">
     </div>
-    <div style="background:#e3f2fd;height:120px;border-radius:14px;margin-bottom:15px;overflow:hidden;">
-        <img src="https://via.placeholder.com/600x180/e3f2fd/666?text=Jadwal+Besok" style="width:100%;height:100%;object-fit:cover;">
+
+    <!-- JADWAL BESOK -->
+    <div style="background:#e3f2fd;border-radius:14px;overflow:hidden;position:relative;box-shadow:0 6px 20px rgba(0,0,0,0.08);">
+        <div style="width:100%;height:100%;">
+        </div>
+        <img src="../img/Screenshot (164).png"
+             style="width:100%;height:180px;object-fit:cover;display:block;">
     </div>
+</div>
 
     <div style="display:flex;gap:15px;margin-top:30px;">
         <a href="kelola_data.php" style="flex:1;padding:16px;background:#f39c12;color:white;border:none;border-radius:30px;text-align:center;text-decoration:none;">Lihat Penilaian</a>
