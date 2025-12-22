@@ -111,7 +111,7 @@ if ($stmt = $conn->prepare($sql)) {
         Hasil Konseling Anda
     </a> 
     
-    <a href="#" class="btn btn-medical-record">
+    <a href="rekam_medis.php" class="btn btn-medical-record">
         Rekam Medis
     </a>
 </div>
