@@ -11,10 +11,15 @@ $sql = "SELECT
             a.id_antrian,
             a.waktuDaftar,
             a.id_konseling,
-            p.nama,
-            p.email
+            p.email,
+            -- Mengambil nama dari tabel pemesanan
+            pem.nama_lengkap AS nama_pasien 
         FROM antrian a
         LEFT JOIN pengguna p ON a.id_pengguna = p.id_pengguna
+        -- Join ke konseling untuk mendapatkan id_jadwal
+        LEFT JOIN konseling k ON a.id_konseling = k.id_konseling
+        -- Join ke pemesanan berdasarkan id_jadwal dan id_pengguna
+        LEFT JOIN pemesanan pem ON k.id_jadwal = pem.id_jadwal AND a.id_pengguna = pem.id_pengguna
         ORDER BY a.waktuDaftar DESC";
 
 $result = mysqli_query($conn, $sql);
@@ -58,38 +63,33 @@ if (!$result) {
             </tr>
         </thead>
         <tbody id="tableBody">
-            <?php while($row = mysqli_fetch_assoc($result)): ?>
-            <tr>
-                <td><strong>A<?= str_pad($row['id_antrian'], 4, '0', STR_PAD_LEFT) ?></strong></td>
-                <td><?= htmlspecialchars($row['nama'] ?: '<i style="color:#999">Tidak ada nama</i>') ?></td>
-                <td><?= htmlspecialchars($row['email'] ?: '-') ?></td>
-                <td><?= $row['waktuDaftar'] ? date('d/m/Y H:i', strtotime($row['waktuDaftar'])) : '-' ?></td>
-                <td>
-    <?php if(is_null($row['id_konseling'])): ?>
-        <span style="color:#e67e22;font-weight:600;padding:6px 12px;background:#fff3cd;border-radius:20px;font-size:13px;">
-            Menunggu
-        </span>
-    <?php else: ?>
-        <span style="color:#27ae60;font-weight:600;padding:6px 12px;background:#d4edda;border-radius:20px;font-size:13px;">
-            Selesai
-        </span>
-    <?php endif; ?>
-</td>
-                <td>
-                    <button class="btn-edit" onclick="location.href='edit_antrian.php?id=<?= $row['id_antrian'] ?>'">Edit</button>
-                    <button class="btn-delete" onclick="if(confirm('Hapus data pasien ini?')) location.href='hapus_antrian.php?id=<?= $row['id_antrian'] ?>'">Hapus</button>
-                </td>
-            </tr>
-            <?php endwhile; ?>
-
-            <?php if(mysqli_num_rows($result) == 0): ?>
-            <tr>
-                <td colspan="6" style="text-align:center;padding:80px;color:#95a5a6;font-size:16px;">
-                    Belum ada data antrian pasien
-                </td>
-            </tr>
+    <?php while($row = mysqli_fetch_assoc($result)): ?>
+    <tr>
+        <td><strong>A<?= str_pad($row['id_antrian'], 4, '0', STR_PAD_LEFT) ?></strong></td>
+        
+        <td><?= htmlspecialchars($row['nama_pasien'] ?: ($row['nama'] ?? '<i style="color:#999">Tanpa Nama</i>')) ?></td>
+        
+        <td><?= htmlspecialchars($row['email'] ?: '-') ?></td>
+        <td><?= $row['waktuDaftar'] ? date('d/m/Y H:i', strtotime($row['waktuDaftar'])) : '-' ?></td>
+        <td>
+            <?php if(is_null($row['id_konseling'])): ?>
+                <span style="color:#e67e22;font-weight:600;padding:6px 12px;background:#fff3cd;border-radius:20px;font-size:13px;">
+                    Menunggu
+                </span>
+            <?php else: ?>
+                <span style="color:#27ae60;font-weight:600;padding:6px 12px;background:#d4edda;border-radius:20px;font-size:13px;">
+                    Selesai
+                </span>
             <?php endif; ?>
-        </tbody>
+        </td>
+        <td>
+            <button class="btn-edit" onclick="location.href='edit_antrian.php?id=<?= $row['id_antrian'] ?>'">Edit</button>
+            <button class="btn-delete" onclick="if(confirm('Hapus data pasien ini?')) location.href='hapus_antrian.php?id=<?= $row['id_antrian'] ?>'">Hapus</button>
+        </td>
+    </tr>
+    <?php endwhile; ?>
+    
+    </tbody>
     </table>
 </div>
 
