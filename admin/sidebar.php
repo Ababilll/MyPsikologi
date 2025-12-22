@@ -9,7 +9,6 @@
         <i class="fas fa-calendar-check"></i> Konfirmasi Pendaftaran
     </a>
 </li>
-        <li><a href="pengaturan.php"><i class="fas fa-cog"></i> Pengaturan</a></li>
     </ul>
     <div class="sidebar-footer">
         <a href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Keluar</a>

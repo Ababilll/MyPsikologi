@@ -27,7 +27,7 @@ mysqli_query($conn, "
     WHERE email='$email'
 ");
 
-$link = "http://localhost/PsikologiWeb/auth/reset.php?token=$token";
+$link = "http://localhost/mypsikolog/MyPsikologi/auth/reset.php?token=$token";
 
 // sementara tampilkan link (kalau belum pakai email)
 echo "Link reset password:<br>";

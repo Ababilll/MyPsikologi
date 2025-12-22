@@ -83,6 +83,9 @@ if (!$result) {
             <?php endif; ?>
         </td>
         <td>
+        <?php if(is_null($row['id_konseling'])): ?>
+         <button class="btn-edit" onclick="location.href='isi_hasil.php?id=<?= $row['id_antrian'] ?>'">Isi Hasil</button>
+    <?php endif; ?>
             <button class="btn-edit" onclick="location.href='edit_antrian.php?id=<?= $row['id_antrian'] ?>'">Edit</button>
             <button class="btn-delete" onclick="if(confirm('Hapus data pasien ini?')) location.href='hapus_antrian.php?id=<?= $row['id_antrian'] ?>'">Hapus</button>
         </td>
